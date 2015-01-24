@@ -9,4 +9,5 @@ public class Tags
 	public static string footRight = "Foot Right";
 	public static string footLeft = "Foot Left" ;
 	public static string body = "Body";
+	public static string floor = "Floor";
 }
