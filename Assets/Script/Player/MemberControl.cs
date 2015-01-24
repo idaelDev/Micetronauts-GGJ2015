@@ -19,7 +19,7 @@ public class MemberControl : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D other)
 	{
-		if(other.gameObject.tag == Tags.floor)
+		if(other.gameObject.tag != Tags.body)
 		{
 			isOnFloor = true;
 		}
@@ -27,7 +27,7 @@ public class MemberControl : MonoBehaviour
 
 	void OnCollisionExit2D(Collision2D other)
 	{
-		if(other.gameObject.tag == Tags.floor)
+		if(other.gameObject.tag != Tags.body)
 		{
 			isOnFloor = false;
 		}
