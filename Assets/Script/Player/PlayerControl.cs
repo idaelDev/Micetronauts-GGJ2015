@@ -11,6 +11,7 @@ public class PlayerControl : MonoBehaviour
 	public bool player4_keyboard = false;
 
 	public float speed = 5f;
+	public float gravitySpeed = 100f;
 
 	private string rightLegHorizontal;
 	private string rightLegVertical;
@@ -78,18 +79,18 @@ public class PlayerControl : MonoBehaviour
 
 	void MoveMember(GameObject member,MemberControl m , float h, float v)
 	{
-		Vector3 movement = new Vector3(h,v,0)*speed*Time.deltaTime;
+		Vector3 movement = new Vector3(h,v,0)*Time.deltaTime;
 //		if(m.canControl)
 //		{
 			if(!gravityController.IsGravityOn)
 			{
-				member.rigidbody2D.AddForce(movement*100);
+			member.rigidbody2D.AddForce(movement*gravitySpeed);
 			}
 			else
 			{
 				if(OnFloorCounter() != 0)// || !CanControlAll())
 				{
-					member.rigidbody2D.MovePosition(member.transform.position + movement);
+					member.rigidbody2D.MovePosition(member.transform.position + movement*speed);
 				}
 //				else
 //				{
