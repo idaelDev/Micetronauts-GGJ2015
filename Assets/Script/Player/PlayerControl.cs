@@ -84,6 +84,7 @@ public class PlayerControl : MonoBehaviour
 	void MoveMember(GameObject member,MemberControl m , float h, float v)
 	{
 		Vector3 movement = new Vector3(h,v,0)*Time.deltaTime;
+		Debug.Log (movement);
 //		if(m.canControl)
 //		{
 			if(!gravityController.IsGravityOn)
