@@ -4,10 +4,8 @@ using System.Collections;
 public class Tags
 {
 	public static string player = "Player";
-	public static string handRight = "Hand Right";
-	public static string handLeft = "Hand Left";
-	public static string footRight = "Foot Right";
-	public static string footLeft = "Foot Left" ;
+	public static string hand = "Hand";
+	public static string foot = "Foot";
 	public static string body = "Body";
 	public static string floor = "Floor";
 	public static string gameController = "GameController";

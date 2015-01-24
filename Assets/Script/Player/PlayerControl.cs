@@ -41,10 +41,14 @@ public class PlayerControl : MonoBehaviour
 	{
 		gameController = GameObject.FindGameObjectWithTag(Tags.gameController);
 		gravityController = gameController.GetComponent<GravityController>();
-		footRightObject = GameObject.FindGameObjectWithTag(Tags.footRight);
-		footLeftObject = GameObject.FindGameObjectWithTag(Tags.footLeft);
-		handRightObject = GameObject.FindGameObjectWithTag(Tags.handRight);
-		handLeftObject = GameObject.FindGameObjectWithTag(Tags.handLeft);
+//		footRightObject = GameObject.FindGameObjectWithTag(Tags.footRight);
+		footRightObject = GameObject.Find("Foot_Right");
+//		footLeftObject = GameObject.FindGameObjectWithTag(Tags.footLeft);
+		footLeftObject = GameObject.Find("Foot_Left");
+//		handRightObject = GameObject.FindGameObjectWithTag(Tags.handRight);
+		handRightObject = GameObject.Find("Hand_Right");
+//		handLeftObject = GameObject.FindGameObjectWithTag(Tags.handLeft);
+		handLeftObject = GameObject.Find("Hand_Left");
 		footRight = footRightObject.GetComponent<MemberControl>();
 		footLeft = footLeftObject.GetComponent<MemberControl>();
 		handRight = handRightObject.GetComponent<MemberControl>();
