@@ -24,25 +24,30 @@ public class PlayerControl : MonoBehaviour
 	private string leftArmHorizontal;
 	private string leftArmVertical;
 
+	private GameObject gameController;
+	private GravityController gravityController;
+
 	private GameObject footRightObject;
 	private GameObject footLeftObject;
 	private GameObject handRightObject;
 	private GameObject handLeftObject;
-	private Foot footRight;
-	private Foot footLeft;
-	private Hand handRight;
-	private Hand handLeft;
+	private MemberControl footRight;
+	private MemberControl footLeft;
+	private MemberControl handRight;
+	private MemberControl handLeft;
 
 	void Awake()
 	{
+		gameController = GameObject.FindGameObjectWithTag(Tags.gameController);
+		gravityController = gameController.GetComponent<GravityController>();
 		footRightObject = GameObject.FindGameObjectWithTag(Tags.footRight);
 		footLeftObject = GameObject.FindGameObjectWithTag(Tags.footLeft);
 		handRightObject = GameObject.FindGameObjectWithTag(Tags.handRight);
 		handLeftObject = GameObject.FindGameObjectWithTag(Tags.handLeft);
-		footRight = footRightObject.GetComponent<Foot>();
-		footLeft = footLeftObject.GetComponent<Foot>();
-		handRight = handRightObject.GetComponent<Hand>();
-		handLeft = handLeftObject.GetComponent<Hand>();
+		footRight = footRightObject.GetComponent<MemberControl>();
+		footLeft = footLeftObject.GetComponent<MemberControl>();
+		handRight = handRightObject.GetComponent<MemberControl>();
+		handLeft = handLeftObject.GetComponent<MemberControl>();
 		JoystickAssignation();
 
 	}
@@ -60,19 +65,38 @@ public class PlayerControl : MonoBehaviour
 		float hHandLeft = Input.GetAxis(leftArmHorizontal);
 		float vHandLeft = Input.GetAxis(leftArmVertical);
 
-		MoveMember(footRightObject, hFootRight, vFootRight);
-		MoveMember(footLeftObject, hFootLeft, vFootLeft);
-		MoveMember(handRightObject, hHandRight, vHandRight);
-		MoveMember(handLeftObject, hHandLeft, vHandLeft);
+		footRight.canControl = true;
+		footLeft.canControl = true;
+		handLeft.canControl = true;
+		handRight.canControl = true;
+
+		MoveMember(footRightObject,footRight, hFootRight, vFootRight);
+		MoveMember(footLeftObject,footLeft, hFootLeft, vFootLeft);
+		MoveMember(handRightObject,handRight, hHandRight, vHandRight);
+		MoveMember(handLeftObject,handLeft, hHandLeft, vHandLeft);
 	}
 
-	void MoveMember(GameObject member, float h, float v)
+	void MoveMember(GameObject member,MemberControl m , float h, float v)
 	{
-		if(OnFloorCounter() > 1)
-		{
-			Vector3 movement = new Vector3(h,v,0)*speed*Time.deltaTime;
-			member.rigidbody2D.MovePosition(member.transform.position + movement);
-		}
+		Vector3 movement = new Vector3(h,v,0)*speed*Time.deltaTime;
+//		if(m.canControl)
+//		{
+			if(!gravityController.IsGravityOn)
+			{
+				member.rigidbody2D.AddForce(movement*100);
+			}
+			else
+			{
+				if(OnFloorCounter() != 0)// || !CanControlAll())
+				{
+					member.rigidbody2D.MovePosition(member.transform.position + movement);
+				}
+//				else
+//				{
+//					m.canControl = false;
+//				}
+			}
+//		}
 	}
 
 	void JoystickAssignation()
@@ -154,5 +178,10 @@ public class PlayerControl : MonoBehaviour
 		if(handLeft.isOnFloor)
 			onFloorCount++;
 		return onFloorCount;
+	}
+
+	bool CanControlAll()
+	{
+		return footRight.canControl && footLeft.canControl && handRight.canControl && handLeft.canControl;
 	}
 }
