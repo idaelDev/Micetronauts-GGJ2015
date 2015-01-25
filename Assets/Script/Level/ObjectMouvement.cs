@@ -8,12 +8,5 @@ public class ObjectMouvement : MonoBehaviour {
        Impulsion = Random.insideUnitCircle.normalized * 100f;
        rigidbody2D.AddForce(Impulsion);
 	}
-	
-	void OnCollisionEnter2D(Collision2D other)
-	{
-		if(other.gameObject.tag == Tags.floor)
-		{
-//			rigidbody2D.velocity *= 2f;
-		}
-	}
+
 }

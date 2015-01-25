@@ -10,4 +10,5 @@ public class Tags
 	public static string floor = "Floor";
 	public static string gameController = "GameController";
 	public static string cam = "MainCamera";
+	public static string center = "Center";
 }
