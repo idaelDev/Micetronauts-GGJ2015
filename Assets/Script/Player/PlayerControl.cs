@@ -3,12 +3,12 @@ using System.Collections;
 
 public class PlayerControl : MonoBehaviour 
 {
-	public bool twoPlayer = false;
+	private bool twoPlayer = false;
 
-	public bool player1_keyboard = false;
-	public bool player2_keyboard = false;
-	public bool player3_keyboard = false;
-	public bool player4_keyboard = false;
+	private bool player1_keyboard = false;
+	private bool player2_keyboard = false;
+	private bool player3_keyboard = false;
+	private bool player4_keyboard = false;
 
 	public float speed = 5f;
 	public float gravitySpeed = 100f;
@@ -39,6 +39,8 @@ public class PlayerControl : MonoBehaviour
 
 	void Awake()
 	{
+
+
 		gameController = GameObject.FindGameObjectWithTag(Tags.gameController);
 		gravityController = gameController.GetComponent<GravityController>();
 //		footRightObject = GameObject.FindGameObjectWithTag(Tags.footRight);
@@ -53,8 +55,8 @@ public class PlayerControl : MonoBehaviour
 		footLeft = footLeftObject.GetComponent<MemberControl>();
 		handRight = handRightObject.GetComponent<MemberControl>();
 		handLeft = handLeftObject.GetComponent<MemberControl>();
-		JoystickAssignation();
 
+		JoystickAssignation();
 	}
 
 	void FixedUpdate()
@@ -85,19 +87,22 @@ public class PlayerControl : MonoBehaviour
 	{
 		m.anim.enabled = false;
 		Vector3 movement = new Vector3(h,v,0)*Time.deltaTime;
-		if(movement != Vector3.zero)
-			m.anim.enabled = true;
+
 //		Debug.Log (movement);
 //		if(m.canControl)
 //		{
 			if(!gravityController.IsGravityOn)
 			{
+				if(movement != Vector3.zero)
+					m.anim.enabled = true;
 				member.rigidbody2D.AddForce(movement*gravitySpeed);
 			}
 			else
 			{
 				if(OnFloorCounter() != 0)// || !CanControlAll())
 				{
+					if(movement != Vector3.zero)
+						m.anim.enabled = true;
 					member.rigidbody2D.MovePosition(member.transform.position + movement*speed);
 				}
 //				else
@@ -110,6 +115,23 @@ public class PlayerControl : MonoBehaviour
 
 	void JoystickAssignation()
 	{
+		string[] joy = Input.GetJoystickNames();
+		if(joy.Length <= 1)
+		{
+			player1_keyboard = true;
+			player2_keyboard = true;
+			player3_keyboard = true;
+			player4_keyboard = true;
+		}
+		if(joy.Length == 2)
+		{
+			twoPlayer = true;
+		}
+		if(joy.Length == 3)
+		{
+			player4_keyboard = true;
+		}
+
 		if(player1_keyboard)
 		{
 			rightLegHorizontal = InputController.rightLegHorizontalKey;
