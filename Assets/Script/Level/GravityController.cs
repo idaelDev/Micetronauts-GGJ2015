@@ -12,9 +12,9 @@ public class GravityController : MonoBehaviour
 		cam = GameObject.FindGameObjectWithTag(Tags.cam).GetComponent<CameraFollow>();
 	}
 
-	public void SwitchGravity()
+	public void SwitchGravity(bool gravity)
 	{
-		if(isGravityOn){
+		if(gravity){
 			Physics2D.gravity = Vector2.zero;
 			cam.followY = true;
 		}
@@ -23,7 +23,7 @@ public class GravityController : MonoBehaviour
 			Physics2D.gravity = defaultGravity;
 			cam.followY = false;
 		}
-		isGravityOn = !isGravityOn;
+		isGravityOn = gravity;
 	}
 
 	public bool IsGravityOn
