@@ -5,12 +5,10 @@ public class MultipleButton : MonoBehaviour {
 
 	public Activable activable;
 
-	private Button[] buttons;
+	public Button[] buttons;
 	private bool done;
 	// Use this for initialization
-	void Awake () {
-		buttons = GetComponentsInChildren<Button>();
-	}
+
 	
 	// Update is called once per frame
 	void Update () {
