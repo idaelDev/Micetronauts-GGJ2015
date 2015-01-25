@@ -81,15 +81,18 @@ public class PlayerControl : MonoBehaviour
 		MoveMember(handLeftObject,handLeft, hHandLeft, vHandLeft);
 	}
 
-	void MoveMember(GameObject member,MemberControl m , float h, float v)
+	void MoveMember(GameObject member, MemberControl m , float h, float v)
 	{
+		m.anim.enabled = false;
 		Vector3 movement = new Vector3(h,v,0)*Time.deltaTime;
+		if(movement != Vector3.zero)
+			m.anim.enabled = true;
 //		Debug.Log (movement);
 //		if(m.canControl)
 //		{
 			if(!gravityController.IsGravityOn)
 			{
-			member.rigidbody2D.AddForce(movement*gravitySpeed);
+				member.rigidbody2D.AddForce(movement*gravitySpeed);
 			}
 			else
 			{

@@ -5,6 +5,7 @@ public class MemberControl : MonoBehaviour
 {
 	public bool canControl = true;
 	public bool isOnFloor = false;
+	public SpriteRenderer anim;
 
 	private float height = 0;
 	private float maxUp;
