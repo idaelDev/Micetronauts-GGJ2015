@@ -12,6 +12,6 @@ public class GravityTester : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.A))
-			gc.SwitchGravity();
+			gc.SwitchGravity(!gc.IsGravityOn);
 	}
 }
