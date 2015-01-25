@@ -7,6 +7,7 @@ public class Glass : MonoBehaviour {
 	public Sprite glassBroken2;
 	public Sprite glassBroken3;
 	public GameObject glassExplode;
+	public GravityOnObject[] gravityObject;
 
 	private int breakCount = 0;
 	private SpriteRenderer sr;
@@ -40,6 +41,10 @@ public class Glass : MonoBehaviour {
 		if(breakCount == 2)
 		{
 			Instantiate(glassExplode, transform.position, Quaternion.identity);
+			for(int i = 0; i<gravityObject.Length; i++)
+			{
+				gravityObject[i].SwitchGravity();
+			}
 			Destroy(gameObject);
 		}
 		breakCount++;
