@@ -4,14 +4,16 @@ using System.Collections;
 public class ObjectMouvement : MonoBehaviour {
     Vector2 Impulsion;
 	// Use this for initialization
-	void Start () {
-       Impulsion = new Vector2 (Random.Range(-100F, 100F),Random.Range(-100F, 100f));
+	void Awake () {
+       Impulsion = Random.insideUnitCircle.normalized * 100f;
        rigidbody2D.AddForce(Impulsion);
-	
 	}
 	
-	// Update is called once per frame
-	void Update () {
-   
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		if(other.gameObject.tag == Tags.floor)
+		{
+//			rigidbody2D.velocity *= 2f;
+		}
 	}
 }
