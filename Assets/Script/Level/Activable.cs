@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Activable : MonoBehaviour {
+public abstract class Activable : MonoBehaviour {
 
-	public void Activate()
+	protected bool isActivated = false;
+
+	public virtual void Activate()
 	{
-		Debug.Log("Activated");
 	}	
 }
