@@ -3,9 +3,12 @@ using System.Collections;
 
 public class GravityController : MonoBehaviour
 {
+
+	public float gravityZ = 8f;
+	public float noGravityZ = 5.5f;
 	private CameraFollow cam;
 	private Vector2 defaultGravity = new Vector2(0f, -9.81f);
-	private bool isGravityOn = true;
+	private bool isGravityOn = false;
 
 	void Awake()
 	{
@@ -17,11 +20,13 @@ public class GravityController : MonoBehaviour
 		if(gravity){
 			Physics2D.gravity = Vector2.zero;
 			cam.followY = true;
+			cam.zToTarget = gravityZ;
 		}
 		else
 		{
 			Physics2D.gravity = defaultGravity;
 			cam.followY = false;
+			cam.zToTarget = noGravityZ;
 		}
 		isGravityOn = gravity;
 	}
