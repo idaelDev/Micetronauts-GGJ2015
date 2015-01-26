@@ -91,7 +91,7 @@ public class PlayerControl : MonoBehaviour
 //		Debug.Log (movement);
 //		if(m.canControl)
 //		{
-			if(!gravityController.IsGravityOn)
+			if(gravityController.IsGravityOn)
 			{
 				if(movement != Vector3.zero)
 					m.anim.enabled = true;

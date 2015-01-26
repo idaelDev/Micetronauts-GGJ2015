@@ -5,7 +5,7 @@ public class GravityController : MonoBehaviour
 {
 	private CameraFollow cam;
 	private Vector2 defaultGravity = new Vector2(0f, -9.81f);
-	private bool isGravityOn = true;
+	private bool isGravityOn = false;
 
 	void Awake()
 	{
