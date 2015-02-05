@@ -36,12 +36,11 @@ public class PlayerControl : MonoBehaviour
 	private MemberControl footLeft;
 	private MemberControl handRight;
 	private MemberControl handLeft;
-	private AudioSource audio;
 
 	void Awake()
 	{
 
-		audio = GetComponent<AudioSource>();
+
 		gameController = GameObject.FindGameObjectWithTag(Tags.gameController);
 		gravityController = gameController.GetComponent<GravityController>();
 //		footRightObject = GameObject.FindGameObjectWithTag(Tags.footRight);
@@ -78,72 +77,40 @@ public class PlayerControl : MonoBehaviour
 		handLeft.canControl = true;
 		handRight.canControl = true;
 
-
-		ComputeAudio(hFootRight + vFootRight + hFootLeft + vFootLeft + hHandRight + vHandRight + hHandLeft + vHandLeft != 0);
-
 		MoveMember(footRightObject,footRight, hFootRight, vFootRight);
 		MoveMember(footLeftObject,footLeft, hFootLeft, vFootLeft);
 		MoveMember(handRightObject,handRight, hHandRight, vHandRight);
 		MoveMember(handLeftObject,handLeft, hHandLeft, vHandLeft);
 	}
 
-	void ComputeAudio(bool fire)
-	{
-		if(fire)
-		{
-			if(gravityController.IsGravityOn)
-			{
-				if(!audio.isPlaying)
-				{
-					audio.Play();
-				}
-			}
-			else
-			if(OnFloorCounter() != 0)// || !CanControlAll())
-			{
-				if(!audio.isPlaying){
-					audio.Play();
-				}
-			}
-			else
-			{
-				audio.Stop ();
-			}
-		}
-		else
-		{
-			audio.Stop ();
-		}
-	}
-
 	void MoveMember(GameObject member, MemberControl m , float h, float v)
 	{
-
-		Vector3 movement = new Vector3(h,v,0)*Time.deltaTime;
 		m.anim.enabled = false;
+		Vector3 movement = new Vector3(h,v,0)*Time.deltaTime;
 
-
-		if(gravityController.IsGravityOn)
-		{
-			if(movement != Vector3.zero)
+//		Debug.Log (movement);
+//		if(m.canControl)
+//		{
+			if(gravityController.IsGravityOn)
 			{
-				m.anim.enabled = true;
-			}
-
-			member.rigidbody2D.AddForce(movement*gravitySpeed);
-		}
-		else
-		{
-			if(OnFloorCounter() != 0)// || !CanControlAll())
-			{
-				if(movement != Vector3.zero){
+				if(movement != Vector3.zero)
 					m.anim.enabled = true;
-				}
-	
-				member.rigidbody2D.MovePosition(member.transform.position + movement*speed);
+				member.rigidbody2D.AddForce(movement*gravitySpeed);
 			}
-
-		}
+			else
+			{
+				if(OnFloorCounter() != 0)// || !CanControlAll())
+				{
+					if(movement != Vector3.zero)
+						m.anim.enabled = true;
+					member.rigidbody2D.MovePosition(member.transform.position + movement*speed);
+				}
+//				else
+//				{
+//					m.canControl = false;
+//				}
+			}
+//		}
 	}
 
 	void JoystickAssignation()
@@ -248,6 +215,4 @@ public class PlayerControl : MonoBehaviour
 	{
 		return footRight.canControl && footLeft.canControl && handRight.canControl && handLeft.canControl;
 	}
-
-
 }
