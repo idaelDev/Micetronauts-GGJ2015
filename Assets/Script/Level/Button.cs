@@ -8,9 +8,11 @@ public class Button : MonoBehaviour
 	public bool isActivated = false;
 	public Color validatingColor;
 	private Color col;
+    private AudioSource audio;
 
 	void Awake()
 	{
+        audio = GetComponent<AudioSource>();
 		col = gameObject.renderer.material.color;
 	}
 
@@ -22,6 +24,11 @@ public class Button : MonoBehaviour
 			gameObject.renderer.material.color = validatingColor;
 			if(activable !=  null)
 				activable.Activate();
+            if(audio != null)
+            {
+                if (!audio.isPlaying)
+                    audio.Play();
+            }
 		}
 	}
 

@@ -7,7 +7,12 @@ public class Trappe : Activable {
 
 	public override void Activate()
 	{
-		gameObject.GetComponent<Animation>().Play();
+        if(!isActivated)
+        {
+		    gameObject.GetComponent<Animation>().Play();
+            gameObject.GetComponent<AudioSource>().Play();
+            isActivated = true;
+        }
 	}
 
 }

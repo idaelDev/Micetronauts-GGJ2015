@@ -37,6 +37,8 @@ public class PlayerControl : MonoBehaviour
 	private MemberControl handRight;
 	private MemberControl handLeft;
 
+    private AudioSource mouseAudio;
+
 	void Awake()
 	{
 
@@ -57,6 +59,8 @@ public class PlayerControl : MonoBehaviour
 		handLeft = handLeftObject.GetComponent<MemberControl>();
 
 		JoystickAssignation();
+
+        mouseAudio = GetComponent<AudioSource>();
 	}
 
 	void FixedUpdate()
@@ -85,7 +89,8 @@ public class PlayerControl : MonoBehaviour
 
 	void MoveMember(GameObject member, MemberControl m , float h, float v)
 	{
-		m.anim.enabled = false;
+        m.Activate(false);
+
 		Vector3 movement = new Vector3(h,v,0)*Time.deltaTime;
 
 //		Debug.Log (movement);
@@ -94,7 +99,7 @@ public class PlayerControl : MonoBehaviour
 			if(gravityController.IsGravityOn)
 			{
 				if(movement != Vector3.zero)
-					m.anim.enabled = true;
+					m.Activate(true);
 				member.rigidbody2D.AddForce(movement*gravitySpeed);
 			}
 			else
@@ -102,8 +107,11 @@ public class PlayerControl : MonoBehaviour
 				if(OnFloorCounter() != 0)// || !CanControlAll())
 				{
 					if(movement != Vector3.zero)
-						m.anim.enabled = true;
+                    {
+                        m.Activate(true);
+                    }
 					member.rigidbody2D.MovePosition(member.transform.position + movement*speed);
+
 				}
 //				else
 //				{
